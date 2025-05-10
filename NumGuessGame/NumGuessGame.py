@@ -42,15 +42,9 @@ def main():
     while guess <= min_guesses:
         user_guess = get_valid_number("Enter your guess number : ")
         if user_guess == select_number:
-<<<<<<< HEAD
             print(f"{50*'#'}Congrats! You have found the number")
-            if min_guesses == guess:
-                break
-=======
-            print("Congrats! You have found the number")
             print(f"You have used {guess} of out {min_guesses} guesses")
             break
->>>>>>> parent of 8ffc87d (Adding # for Congrats)
         else:
             guess += 1
             if user_guess < select_number:
@@ -58,7 +52,7 @@ def main():
             elif user_guess > select_number:
                 print("Your guess number is High. Try again")
             elif guess == min_guesses:
-                print("You are out of guesses. Game Lost! Better luck next time.")
+                print("You are out of guesses. Game Lost!")
 
 
 if __name__ == "__main__":
