@@ -1,4 +1,5 @@
 # https://www.geeksforgeeks.org/python-program-for-word-guessing-game/
+
 import random  # Import the random module to randomly select a word
 
 # List of possible words the game can choose from
@@ -21,8 +22,15 @@ print("You have", attempts, "attempts to guess the word.")
 
 # Game loop: runs until the user either runs out of attempts or guesses all letters
 while attempts > 0 and word_letters:
-    # Display the current state of the word with guessed letters shown and unguessed letters as underscores
-    display_word = [letter if letter in guessed_letters else '_' for letter in word]
+    # Display the current state of the word using a standard for loop
+    display_word = []
+    for letter in word:
+        if letter in guessed_letters:
+            display_word.append(letter)
+        else:
+            display_word.append('_')
+
+    # Show the word with guessed letters revealed and unguessed letters as underscores
     print("Word: ", ' '.join(display_word))
 
     # Display letters guessed so far
