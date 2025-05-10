@@ -52,7 +52,7 @@ def main():
             elif user_guess > select_number:
                 print("Your guess number is High. Try again")
             elif guess == min_guesses:
-                print("You are out of guesses. Game Lost!")
+                print("You are out of guesses. Game Lost! Better luck next time.")
 
 
 if __name__ == "__main__":
