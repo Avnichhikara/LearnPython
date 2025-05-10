@@ -1,65 +1,60 @@
-#https://www.geeksforgeeks.org/python-program-for-word-guessing-game/
+import random  # Import the random module to randomly select a word
 
-import random  # Importing the random module to randomly select a word from the list
+# List of possible words the game can choose from
+word_list = ['python', 'developer', 'keyboard', 'laptop', 'function', 'variable']
 
-# Asking the player for their name and greeting them
-name = input("What is your name? ")
+# Randomly select a word from the list
+word = random.choice(word_list)
 
-print("Good Luck ! ", name)  # Displaying a welcome message to the player
+# Create a set of unique letters in the word (to track which letters remain to be guessed)
+word_letters = set(word)
 
-# List of possible words for the guessing game
-words = ['rainbow', 'computer', 'science', 'programming',
-         'python', 'mathematics', 'player', 'condition',
-         'reverse', 'water', 'board', 'geeks']
+# Keep track of letters the user has guessed
+guessed_letters = set()
 
-# Randomly choose a word from the list of words
-word = random.choice(words)
+# Number of incorrect guesses allowed
+attempts = 7
 
-print("Guess the characters")  # Prompting the player to start guessing
+print("Welcome to the Word Guessing Game!")
+print("You have", attempts, "attempts to guess the word.")
 
-# Variable to keep track of guessed characters
-guesses = ''
+# Game loop: runs until the user either runs out of attempts or guesses all letters
+while attempts > 0 and word_letters:
+    # Display the current state of the word with guessed letters shown and unguessed letters as underscores
+    display_word = [letter if letter in guessed_letters else '_' for letter in word]
+    print("Word: ", ' '.join(display_word))
 
-# Variable to store the number of remaining attempts
-turns = 12
+    # Display letters guessed so far
+    print("Guessed letters: ", ' '.join(sorted(guessed_letters)))
 
-# Main game loop - continues as long as there are turns left
-while turns > 0:
+    # Ask the user for their guess and convert it to lowercase
+    guess = input("Guess a letter: ").lower()
 
-    failed = 0  # Counter for unguessed characters in the current word
+    # Validate input: must be a single alphabetic character
+    if not guess.isalpha() or len(guess) != 1:
+        print("Please enter a single alphabet letter.")
+        continue  # Skip to the next loop iteration
 
-    # Display the word progress (characters guessed or blanks for unguessed characters)
-    for char in word:
+    # Check if the letter was already guessed
+    if guess in guessed_letters:
+        print("You already guessed that letter.")
+        continue
 
-        if char in guesses:  # If the character has been guessed, show it
-            print(char, end=" ")
+    # Add the guess to the set of guessed letters
+    guessed_letters.add(guess)
 
-        else:  # Otherwise, display an underscore for the missing character
-            print("_", end=" ")
-            failed += 1  # Increment the failed counter for each missing character
+    # Check if the guessed letter is in the word
+    if guess in word_letters:
+        # Remove the correctly guessed letter from the remaining letters
+        word_letters.remove(guess)
+        print("Good guess!")
+    else:
+        # Deduct an attempt for an incorrect guess
+        attempts -= 1
+        print("Wrong guess. Attempts left:", attempts)
 
-    # If there are no unguessed characters left, the player wins
-    if failed == 0:
-        print("\nYou Win")  # Congratulate the player
-        print("The word is: ", word)  # Reveal the word
-        break  # Exit the game loop
-
-    print()  # Move to the next line for better UI
-
-    # Prompt the player to guess a character
-    guess = input("guess a character:")
-
-    # Add the guessed character to the `guesses` variable
-    guesses += guess
-
-    # Check if the guessed character is not in the word
-    if guess not in word:
-
-        # Reduce the remaining number of attempts
-        turns -= 1
-        print("Wrong")  # Inform the player about the incorrect guess
-        print("You have", turns, 'more guesses')  # Show the remaining number of guesses
-
-        # If no turns are left, the player loses the game
-        if turns == 0:
-            print("You Loose")  # Inform the player about losing the game
+# Game over: check if the user guessed all letters
+if not word_letters:
+    print("\nCongratulations! You guessed the word:", word)
+else:
+    print("\nGame over! The word was:", word)
