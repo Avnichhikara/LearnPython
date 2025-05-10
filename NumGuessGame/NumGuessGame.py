@@ -42,7 +42,7 @@ def main():
     while guess <= min_guesses:
         user_guess = get_valid_number("Enter your guess number : ")
         if user_guess == select_number:
-            print("Congrats! You have found the number")
+            print(f"\n{50*'#'}Congrats! You have found the number")
             print(f"You have used {guess} of out {min_guesses} guesses")
             break
         else:
