@@ -1,3 +1,5 @@
+#https://www.geeksforgeeks.org/python-program-for-word-guessing-game/
+
 import random  # Importing the random module to randomly select a word from the list
 
 # Asking the player for their name and greeting them
